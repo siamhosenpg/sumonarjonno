@@ -3,6 +3,7 @@
 import { useRef } from "react";
 import { motion, useScroll, useTransform } from "framer-motion";
 import { gallery } from "@/data/content";
+import Image from "next/image";
 
 const LAYOUT = [
   { span: "md:col-span-3", rotate: -4, depth: 40 },
@@ -19,7 +20,11 @@ function Frame({ photo, layout }) {
     target: ref,
     offset: ["start end", "end start"],
   });
-  const y = useTransform(scrollYProgress, [0, 1], [layout.depth, -layout.depth]);
+  const y = useTransform(
+    scrollYProgress,
+    [0, 1],
+    [layout.depth, -layout.depth],
+  );
 
   return (
     <motion.figure
@@ -31,7 +36,10 @@ function Frame({ photo, layout }) {
     >
       <div className="relative aspect-square w-full overflow-hidden bg-blush/50">
         {/* eslint-disable-next-line @next/next/no-img-element */}
-        <img
+        <Image
+          width={500}
+          height={500}
+          priority
           src={photo.src}
           alt={photo.caption}
           className="h-full w-full object-cover"
@@ -63,7 +71,11 @@ export default function Gallery() {
 
       <div className="mt-14 grid grid-cols-1 gap-8 sm:grid-cols-2 md:grid-cols-6">
         {gallery.map((photo, i) => (
-          <Frame key={photo.src} photo={photo} layout={LAYOUT[i % LAYOUT.length]} />
+          <Frame
+            key={photo.src}
+            photo={photo}
+            layout={LAYOUT[i % LAYOUT.length]}
+          />
         ))}
       </div>
     </section>

@@ -3,6 +3,7 @@
 import { useRef } from "react";
 import { motion, useScroll, useTransform } from "framer-motion";
 import { timeline } from "@/data/content";
+import Image from "next/image";
 
 function StoryItem({ item, index }) {
   const ref = useRef(null);
@@ -29,7 +30,10 @@ function StoryItem({ item, index }) {
       >
         <div className="relative aspect-[4/5] w-full overflow-hidden bg-blush/50">
           {/* eslint-disable-next-line @next/next/no-img-element */}
-          <img
+          <Image
+            width={500}
+            height={500}
+            priority
             src={item.image}
             alt={item.title}
             className="h-full w-full object-cover"
@@ -52,7 +56,9 @@ function StoryItem({ item, index }) {
         className="px-2 text-center md:text-left"
       >
         <span className="font-body text-sm text-gold">{item.date}</span>
-        <h3 className="mt-2 font-display text-3xl text-wine sm:text-4xl">{item.title}</h3>
+        <h3 className="mt-2 font-display text-3xl text-wine sm:text-4xl">
+          {item.title}
+        </h3>
         <p className="mt-4 font-body text-base leading-relaxed text-ink/80 sm:text-lg">
           {item.text}
         </p>
